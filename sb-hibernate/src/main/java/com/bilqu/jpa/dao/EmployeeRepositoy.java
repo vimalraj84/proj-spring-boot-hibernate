@@ -11,4 +11,5 @@ import com.bilqu.jpa.eo.Employee;
 @Repository
 public interface EmployeeRepositoy extends JpaRepository<Employee, Long>,RevisionRepository<Employee, Long, Long> {
 
+	// List<Employee> findByDeptId(long id);
 }

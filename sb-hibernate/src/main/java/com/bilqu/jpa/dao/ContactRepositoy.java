@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.bilqu.jpa.eo.Department;
 
 @Repository
-public interface DepartmentRepositoy extends JpaRepository<Department, Long>,RevisionRepository<Department, Long, Long> {
-
-	// Department findByEmployee(long empId);
+public interface ContactRepositoy extends JpaRepository<Department, Long>, RevisionRepository<Department, Long, Long> {
 
 }

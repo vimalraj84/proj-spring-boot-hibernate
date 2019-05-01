@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass  //used to inherit attributes from base/super class
 @EntityListeners({AuditingEntityListener.class}) //enables auditing
 //TODO: Break circular dependency due to the bi-directional relationships between the EO.
-//@JsonIdentityInfo
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 //@JsonBackReference
 //@JsonManagedReference
 public abstract class AbstractEntity {
@@ -33,5 +33,29 @@ public abstract class AbstractEntity {
 
 	@LastModifiedBy
 	private String updatedBy;
+
+	public LocalDateTime getCreatedTs() {
+		return createdTs;
+	}
+
+	public void setCreatedTs(LocalDateTime createdTs) {
+		this.createdTs = createdTs;
+	}
+
+	public LocalDateTime getUpdatedTs() {
+		return updatedTs;
+	}
+
+	public void setUpdatedTs(LocalDateTime updatedTs) {
+		this.updatedTs = updatedTs;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 
 }
