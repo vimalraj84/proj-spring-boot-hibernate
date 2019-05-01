@@ -74,5 +74,17 @@ public class EmployeeService {
 		return empRepo.save(employee);
 	}
 
+	@Transactional
+	@PutMapping("addDept")
+	public @ResponseBody Department addDept(@RequestBody Department department) {
+		return deptRepo.save(department);
+	}
+
+	@Transactional
+	@PostMapping("updateDept")
+	public @ResponseBody Department updateDept(@RequestBody Department department) {
+		return deptRepo.save(department);
+	}
+
 
 }

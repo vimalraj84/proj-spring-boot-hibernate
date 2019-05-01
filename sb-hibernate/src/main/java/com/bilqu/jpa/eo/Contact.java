@@ -2,60 +2,65 @@ package com.bilqu.jpa.eo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.envers.Audited;
+
 
 @Entity
 @Audited
 public class Contact extends AbstractEntity {
 
 	@Id
-	private long con_id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "con_id_seq")
+	@SequenceGenerator(name = "con_id_seq", sequenceName = "CON_ID_SEQ", initialValue = 1, allocationSize = 1)
+	private long conId;
 
 	@Column
-	private String con_type;
+	private String conType;
 
 	@Column
-	private String con_dtl;
+	private String conDtl;
 
 	public Contact() {
 
 	}
 
-	public Contact(long con_id, String con_type, String con_dtl) {
-		this.con_id = con_id;
-		this.con_type = con_type;
-		this.con_dtl = con_dtl;
+	public Contact(long conId, String conType, String conDtl) {
+		this.conId = conId;
+		this.conType = conType;
+		this.conDtl = conDtl;
 	}
 
-	public long getCon_id() {
-		return con_id;
+	public long getConId() {
+		return conId;
 	}
 
-	public void setCon_id(long con_id) {
-		this.con_id = con_id;
+	public void setConId(long conId) {
+		this.conId = conId;
 	}
 
-	public String getCon_type() {
-		return con_type;
+	public String getConType() {
+		return conType;
 	}
 
-	public void setCon_type(String con_type) {
-		this.con_type = con_type;
+	public void setConType(String conType) {
+		this.conType = conType;
 	}
 
-	public String getCon_dtl() {
-		return con_dtl;
+	public String getConDtl() {
+		return conDtl;
 	}
 
-	public void setCon_dtl(String con_dtl) {
-		this.con_dtl = con_dtl;
+	public void setConDtl(String conDtl) {
+		this.conDtl = conDtl;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Contact [con_id=%s, con_type=%s, con_dtl=%s]", con_id, con_type, con_dtl);
+		return String.format("Contact [conId=%s, conType=%s, conDtl=%s]", conId, conType, conDtl);
 	}
-
 }

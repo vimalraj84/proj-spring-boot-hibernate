@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.envers.Audited;
 
@@ -23,7 +24,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Department extends AbstractEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dept_id_seq")
+	@SequenceGenerator(name = "dept_id_seq", sequenceName = "dept_ID_SEQ", initialValue = 10, allocationSize = 10)
 	private Long deptId;
 
 	@Column(nullable = false)
