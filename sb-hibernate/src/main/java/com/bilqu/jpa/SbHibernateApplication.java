@@ -15,4 +15,5 @@ public class SbHibernateApplication {
 		SpringApplication.run(SbHibernateApplication.class, args);
 	}
 
+
 }

@@ -13,12 +13,16 @@ import javax.persistence.Transient;
 
 import org.hibernate.envers.Audited;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 //by default Hibernate will generate the names of the tables in lowercase letters.
 //We could also try to explicitly set the table name, like this: @Entity(name="EMPLOYEE")
 @Entity
 @Audited //will enable auditing/tracking changes on this EO
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "empId")
-public class Employee extends AbstractEntity{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "empId")
+public class Employee extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_id_seq")
@@ -36,12 +40,16 @@ public class Employee extends AbstractEntity{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "deptId", nullable = false)
-	//	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Department department;
 
 
 	public Employee() {
 
+	}
+
+	public Employee(Long id) {
+		this.empId = id;
 	}
 
 	public Employee(Long id, String name, int age) {

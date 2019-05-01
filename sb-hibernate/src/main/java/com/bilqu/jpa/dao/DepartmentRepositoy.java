@@ -5,10 +5,11 @@ import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
 import com.bilqu.jpa.eo.Department;
+import com.bilqu.jpa.eo.Employee;
 
 @Repository
 public interface DepartmentRepositoy extends JpaRepository<Department, Long>,RevisionRepository<Department, Long, Long> {
 
-	// Department findByEmployee(long empId);
+	Department findByEmployee(Employee emp);
 
 }

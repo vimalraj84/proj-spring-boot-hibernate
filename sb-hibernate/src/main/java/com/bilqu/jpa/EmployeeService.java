@@ -41,26 +41,26 @@ public class EmployeeService {
 	@GetMapping("getAllEmp")
 	public @ResponseBody  List<Employee> getAll() {
 		List<Employee> employees = empRepo.findAll();
-		System.out.println(employees);
+		//		System.out.println(employees);
 		return employees;
 	}
 
 	@GetMapping("getAllDept")
 	public @ResponseBody List<Department> getAllDept() {
 		List<Department> departments = deptRepo.findAll();
-		System.out.println(departments);
+		//		System.out.println(departments);
 		return departments;
 	}
 
-	//	@GetMapping("getEmpByDept/deptId/{deptId}")
-	//	public @ResponseBody List<Employee> getEmpByDept(@PathVariable("deptId") long deptId) {
-	//		return empRepo.findByDeptId(deptId);
-	//	}
-	//
-	//	@GetMapping("getDepartmentByEmp/empId/{empId}")
-	//	public @ResponseBody Department getDepartmentByEmp(@PathVariable("empId") long empId) {
-	//		return deptRepo.findByEmployee(empId);
-	//	}
+	@GetMapping("getEmpByDept/deptId/{deptId}")
+	public @ResponseBody List<Employee> getEmpByDept(@PathVariable("deptId") long deptId) {
+		return empRepo.findByDepartment(new Department(deptId));
+	}
+
+	@GetMapping("getDepartmentByEmp/empId/{empId}")
+	public @ResponseBody Department getDepartmentByEmp(@PathVariable("empId") long empId) {
+		return deptRepo.findByEmployee(new Employee(empId));
+	}
 
 	@Transactional
 	@PutMapping("addEmp")

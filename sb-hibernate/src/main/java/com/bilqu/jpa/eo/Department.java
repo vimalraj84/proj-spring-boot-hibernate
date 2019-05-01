@@ -14,10 +14,13 @@ import javax.persistence.OrderBy;
 
 import org.hibernate.envers.Audited;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Audited //will enable auditing/tracking changes on this EO
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "deptId")
-public class Department extends AbstractEntity{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "deptId")
+public class Department extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,10 +31,14 @@ public class Department extends AbstractEntity{
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "department")
 	@OrderBy("empId asc")
-	private List<Employee> employees;
+	private List<Employee> employee;
 
 
 	public Department() {
+	}
+
+	public Department(long id) {
+		this.deptId = id;
 	}
 
 	public Department(long id, String name) {
@@ -53,17 +60,17 @@ public class Department extends AbstractEntity{
 		this.name = name;
 	}
 
-	public List<Employee> getEmployees() {
-		return employees;
+	public List<Employee> getEmployee() {
+		return employee;
 	}
 
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
+	public void setEmployee(List<Employee> employee) {
+		this.employee = employee;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Department [deptId=%s, name=%s, employees=%s]", deptId, name, employees);
+		return String.format("Department [deptId=%s, name=%s, employees=%s]", deptId, name, employee);
 	}
 
 }

@@ -18,6 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 //@JsonBackReference
 //@JsonManagedReference
 public abstract class AbstractEntity {
+
 	//The LocalDateTime class represents a date-time. There is no representation of a time-zone.
 
 	// @CreatedDate //Used for Auditing capture when the entity was created. Spring
