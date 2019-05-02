@@ -1,5 +1,8 @@
 package com.bilqu.jpa.eo;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,7 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
@@ -26,7 +31,7 @@ public class Employee extends AbstractEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emp_id_seq")
-	@SequenceGenerator(name = "emp_id_seq", sequenceName = "EMP_ID_SEQ", initialValue = 1001)
+	@SequenceGenerator(name = "emp_id_seq", sequenceName = "EMP_ID_SEQ", initialValue = 1001, allocationSize = 1)
 	private Long empId;
 
 	@Column(name = "NAME", nullable = false)
@@ -42,6 +47,11 @@ public class Employee extends AbstractEntity {
 	@JoinColumn(name = "deptId", nullable = false)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Department department;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//	@JoinColumn(name = "conId", nullable = false)
+	@JoinTable(name = "EMPLOYEE_CONTACT", joinColumns = @JoinColumn(name = "EMP_ID"), inverseJoinColumns = @JoinColumn(name = "CON_ID"))
+	private Set<Contact> contact;
 
 
 	public Employee() {
@@ -86,9 +96,26 @@ public class Employee extends AbstractEntity {
 		this.department = department;
 	}
 
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Set<Contact> getContact() {
+		return contact;
+	}
+
+	public void setContact(Set<Contact> contact) {
+		this.contact = contact;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Employee [empId=%s, name=%s, age=%s, department=%s]", empId, name, age, department);
+		return String.format("Employee [empId=%s, name=%s, age=%s, comment=%s, department=%s, contact=%s]", empId, name,
+				age, comment, department, contact);
 	}
 
 }

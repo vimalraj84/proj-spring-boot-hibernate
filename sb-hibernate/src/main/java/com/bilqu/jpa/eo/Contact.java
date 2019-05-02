@@ -2,6 +2,8 @@ package com.bilqu.jpa.eo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,10 +19,11 @@ public class Contact extends AbstractEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "con_id_seq")
 	@SequenceGenerator(name = "con_id_seq", sequenceName = "CON_ID_SEQ", initialValue = 1, allocationSize = 1)
-	private long conId;
+	private Long id;
 
 	@Column
-	private String conType;
+	@Enumerated(EnumType.STRING)
+	private ContactType conType;
 
 	@Column
 	private String conDtl;
@@ -29,25 +32,25 @@ public class Contact extends AbstractEntity {
 
 	}
 
-	public Contact(long conId, String conType, String conDtl) {
-		this.conId = conId;
+	public Contact(long conId, ContactType conType, String conDtl) {
+		this.id = conId;
 		this.conType = conType;
 		this.conDtl = conDtl;
 	}
 
 	public long getConId() {
-		return conId;
+		return id;
 	}
 
 	public void setConId(long conId) {
-		this.conId = conId;
+		this.id = conId;
 	}
 
-	public String getConType() {
+	public ContactType getConType() {
 		return conType;
 	}
 
-	public void setConType(String conType) {
+	public void setConType(ContactType conType) {
 		this.conType = conType;
 	}
 
@@ -61,6 +64,6 @@ public class Contact extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return String.format("Contact [conId=%s, conType=%s, conDtl=%s]", conId, conType, conDtl);
+		return String.format("Contact [conId=%s, conType=%s, conDtl=%s]", id, conType, conDtl);
 	}
 }
